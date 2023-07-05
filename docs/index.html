@@ -127,8 +127,8 @@
         computed: {
           filteredList() {
             const results = [];
-            for (const [addressIndex, address] of [...DATA1.entries(), ...DATA2.entries(), ...DATA3.entries(), ...DATA4.entries()]) {
-              results.push({ address });
+            for (const record of [...DATA1, ...DATA2, ...DATA3, ...DATA4]) {
+              results.push(record);
             }
             return results;
           },
