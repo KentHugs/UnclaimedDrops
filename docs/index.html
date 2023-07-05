@@ -17,7 +17,10 @@
     <script src="js/vue.js"></script>
     <script src="js/bootstrap-vue.min.js"></script>
     <script src="js/bootstrap-vue-icons.min.js"></script>
-    <script src="data.js"></script>
+    <script src="data1.js"></script>
+    <script src="data2.js"></script>
+    <script src="data3.js"></script>
+    <script src="data4.js"></script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png">
@@ -124,7 +127,7 @@
         computed: {
           filteredList() {
             const results = [];
-            for (const [addressIndex, address] of DATA.entries()) {
+            for (const [addressIndex, address] of [...DATA1.entries(), ...DATA2.entries(), ...DATA3.entries(), ...DATA4.entries()]) {
               results.push({ address });
             }
             return results;
@@ -152,7 +155,10 @@
 
         // --- MOUNTED ---
         mounted() {
-          console.log("mounted - DATA[0..9]: " + JSON.stringify(DATA.slice(0, 10), null, 2));
+          console.log("mounted - DATA1[0..9]: " + JSON.stringify(DATA1.slice(0, 10), null, 2));
+          console.log("mounted - DATA2[0..9]: " + JSON.stringify(DATA2.slice(0, 10), null, 2));
+          console.log("mounted - DATA3[0..9]: " + JSON.stringify(DATA3.slice(0, 10), null, 2));
+          console.log("mounted - DATA4[0..9]: " + JSON.stringify(DATA4.slice(0, 10), null, 2));
         },
       })
     </script>
