@@ -85,6 +85,19 @@
               <template #cell(number)="data">
                 {{ parseInt(data.index) + ((currentPage - 1) * pageSize) + 1 }}
               </template>
+              <template #cell(address)="data">
+                {{ data.item.address }}
+              </template>
+              <template #cell(links)="data">
+                <b-link size="sm" :href="'https://etherscan.io/address/' + data.item.address" target="_blank" variant="link" v-b-popover.hover.top="'View address in etherscan.io'">
+                  <b-avatar rounded variant="light" size="0.9rem" src="images/etherscan-logo-circle.svg">
+                  </b-avatar>
+                </b-link>
+                <b-link size="sm" :href="'https://opensea.io/' + data.item.address" target="_blank" variant="link" v-b-popover.hover.top="'View address in opensea.io'">
+                  <b-avatar rounded variant="light" size="0.9rem" src="images/opensea.svg">
+                  </b-avatar>
+                </b-link>
+              </template>
             </b-table>
           </b-card>
         </b-card>
@@ -121,10 +134,11 @@
             { value: 10000, text: '10k' },
           ],
           fields: [
-            { key: 'number', label: '#', sortable: false, thStyle: 'width: 10%;', tdClass: 'text-truncate' },
-            { key: 'address', label: 'Address', sortable: false, thStyle: 'width: 40%;', tdClass: 'text-truncate' },
+            { key: 'number', label: '#', sortable: false, thStyle: 'width: 5%;', tdClass: 'text-truncate' },
+            { key: 'links', label: '', sortable: false, thStyle: 'width: 5%;', thClass: 'text-right', tdClass: 'text-right' },
+            { key: 'address', label: 'Address', sortable: false, thStyle: 'width: 35%;', tdClass: 'text-truncate' },
             { key: 'value', label: 'Value', sortable: false, thStyle: 'width: 20%;', tdClass: 'text-truncate' },
-            { key: 'notes', label: 'Notes', sortable: false, thStyle: 'width: 30%;', tdClass: 'text-truncate' },
+            { key: 'notes', label: 'Notes', sortable: false, thStyle: 'width: 35%;', tdClass: 'text-truncate' },
           ],
         },
 
