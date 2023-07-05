@@ -127,8 +127,17 @@
         computed: {
           filteredList() {
             const results = [];
+            const filterRegex = this.filter && this.filter.length > 0 ? new RegExp(this.filter, 'i') : null;
             for (const record of [...DATA1, ...DATA2, ...DATA3, ...DATA4]) {
-              results.push(record);
+              let include = true;
+              if (filterRegex) {
+                if (!filterRegex.test(record.address) && !filterRegex.test(record.value) && !filterRegex.test(record.notes)) {
+                  include = false;
+                }
+              }
+              if (include) {
+                results.push(record);
+              }
             }
             return results;
           },
