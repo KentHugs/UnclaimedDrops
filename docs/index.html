@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My List</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="My List (c) Bok Consulting Pty Ltd 2023" />
+    <meta name="author" content="BokkyPooBah" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@BokkyPooBah" />
+    <meta name="twitter:creator" content="@BokkyPooBah" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-vue.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-vue-icons.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/app.css" />
+    <script src="js/vue.js"></script>
+    <script src="js/bootstrap-vue.min.js"></script>
+    <script src="js/bootstrap-vue-icons.min.js"></script>
+    <script src="data.js"></script>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body>
+    <div id="app">
+      <b-container fluid class="m-0 p-0">
+        <b-navbar toggleable="sm" variant="light" class="mx-1 my-0 p-0">
+          <b-navbar-brand to="/" variant="primary">
+            <b-avatar rounded variant="light" size="3.0rem" src="images/ZombieBaby_001_gp2_3871_8601_10786.gif" v-b-popover.hover.bottom="'gm'" class="ml-0"></b-avatar>
+            <em v-b-popover.hover.bottom="'gm gm gm'">My List</em>
+          </b-navbar-brand>
+        </b-navbar>
+
+        <b-card no-body class="p-0 mt-0" style="min-height: 666px;">
+          <b-card class="m-0 p-0 border-0" body-class="m-1 p-0" header-class="m-0 p-2">
+            <template #header>
+              My List
+            </template>
+            <div class="d-flex flex-wrap m-0 p-0">
+              <div class="mt-0 pr-1">
+                <b-form-input type="text" size="sm" v-model.trim="filter" debounce="600" v-b-popover.hover.top="'Address fragment'" placeholder="🔍 address" style="min-width: 12.0rem;"></b-form-input>
+              </div>
+              <div class="mt-0 flex-grow-1">
+              </div>
+              <div class="mt-0 flex-grow-1">
+              </div>
+              <div class="mt-0 pr-1">
+                <b-form-select size="sm" v-model="sortOption" :options="sortOptions" v-b-popover.hover.top="'Yeah. Sort'"></b-form-select>
+              </div>
+              <div class="mt-0 pr-1">
+                <font size="-2" v-b-popover.hover.top="'# addresses'">{{ filteredSortedList.length }}</font>
+              </div>
+              <div class="mt-0 pr-1">
+                <b-pagination size="sm" v-model="currentPage" :total-rows="filteredSortedList.length" :per-page="pageSize" style="height: 0;"></b-pagination>
+              </div>
+              <div class="mt-0 pl-1">
+                <b-form-select size="sm" v-model="pageSize" :options="pageSizes" v-b-popover.hover.top="'Addresses page size'"></b-form-select>
+              </div>
+            </div>
+
+            <b-table small fixed striped responsive hover :fields="fields" :items="pagedFilteredSortedList" head-variant="light" class="mx-0 my-1">
+              <template #cell(number)="data">
+                {{ parseInt(data.index) + ((currentPage - 1) * pageSize) + 1 }}
+              </template>
+            </b-table>
+          </b-card>
+        </b-card>
+        <b-card no-header body-class="m-0 p-0" class="m-0 p-0 border-0">
+          <b-card-text class="text-right">
+            gm, and enjoy! <i>My List</i> &copy; Bok Consulting Pty Ltd 2023.
+          </b-card-text>
+        </b-card no-header>
+      </b-container>
+    </div>
+
+    <script>
+      window.app = new Vue({
+        el: '#app',
+        // --- DATA ---
+        data: {
+          filter: null,
+          currentPage: 1,
+          pageSize: 100,
+          sortOption: 'addressasc',
+          sortOptions: [
+            { value: 'addressasc', text: '▲ Address' },
+            { value: 'addressdsc', text: '▼ Address' },
+          ],
+          pageSizes: [
+            { value: 5, text: '5' },
+            { value: 10, text: '10' },
+            { value: 25, text: '25' },
+            { value: 50, text: '50' },
+            { value: 100, text: '100' },
+            { value: 500, text: '500' },
+            { value: 1000, text: '1k' },
+            { value: 2500, text: '2.5k' },
+            { value: 10000, text: '10k' },
+          ],
+          fields: [
+            { key: 'number', label: '#', sortable: false, thStyle: 'width: 10%;', tdClass: 'text-truncate' },
+            { key: 'address', label: 'Address', sortable: false, thStyle: 'width: 40%;', tdClass: 'text-truncate' },
+            { key: 'notes', label: 'Notes', sortable: false, thStyle: 'width: 50%;', tdClass: 'text-truncate' },
+          ],
+        },
+
+        // --- COMPUTED ---
+        computed: {
+          filteredList() {
+            const results = [];
+            for (const [addressIndex, address] of DATA.entries()) {
+              results.push({ address });
+            }
+            return results;
+          },
+          filteredSortedList() {
+            let results = this.filteredList;
+            if (this.sortOption == 'addressasc') {
+              results.sort((a, b) => ('' + a.address).localeCompare(b.address));
+            } else if (this.sortOption == 'addressdsc') {
+              results.sort((a, b) => ('' + b.address).localeCompare(a.address));
+            }
+            return results;
+          },
+          pagedFilteredSortedList() {
+            return this.filteredSortedList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
+          },
+        },
+
+        // --- METHODS ---
+        methods: {
+          // copyToClipboard(str) {
+          //   navigator.clipboard.writeText(str);
+          // },
+        },
+
+        // --- MOUNTED ---
+        mounted() {
+          console.log("mounted - DATA[0..9]: " + JSON.stringify(DATA.slice(0, 10), null, 2));
+        },
+      })
+    </script>
+  </body>
+</html>
