@@ -1,3 +1,3 @@
 const DATA3 = [
-  { address: "0x3333333333333333333333333333333333333333", value: "0.03 BCD", notes: "Test data3" },
+  { address: "0xdeea37565a2fbcacb99d0e11e3080593b96cb54b", value: "12995,8725", notes: "Unclaimed" },
 ];
