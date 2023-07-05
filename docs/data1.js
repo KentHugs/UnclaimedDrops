@@ -1,5 +1,5 @@
 const DATA1 = [
-  { address: "0x7e8b062D0693eE611cA197f3A5CA412559F4A2F5", value: null, notes: null },
+  { address: "0xdeea37565a2fbcacb99d0e11e3080593b96cb54b", value: 12995,8725, notes: null },
   { address: "0x7e8b062D0693eE611cA197f3A5CA412559F4A2F5", value: null, notes: null },
   { address: "0xb01151B93B5783c252333Ce0707D704d0BBDF5EC", value: null, notes: null },
   { address: "0x3BA21b6477F48273f41d241AA3722FFb9E07E247", value: null, notes: null },
